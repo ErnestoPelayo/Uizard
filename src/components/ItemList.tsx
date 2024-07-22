@@ -13,6 +13,12 @@ const ItemList = ({id,website}:PropsItemList) => {
         fetchData(id);
     }, []);
 
+
+    function activate(){
+
+    }
+
+
     const fetchData = async (id: number): Promise<void> => {
         try {
             const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`);
@@ -28,19 +34,24 @@ const ItemList = ({id,website}:PropsItemList) => {
 
 
   return (
-    <div className="bg-white p-2">
-        {data?.title}
-        {data ? (
-                data.url ? (
-                    <button onClick={() => website(data.url)}>
-                        {data.url}
-                    </button>
+    <div className="bg-white p-2 mt-1 border-b-gray-900 rounded-lg hover:scale-[1.01] " >
+        <p className=" text-lg font-bold">
+            {data?.title}
+        </p>
+        <div className=" text-right ">
+            {data ? (
+                    data.url ? (
+                        <button onClick={() => website(data.url)}>
+                            Visit site
+                        </button>
+                    ) : (
+                        <p>No URL available</p>
+                    )
                 ) : (
-                    <p>No URL available</p>
-                )
-            ) : (
-                <p>Loading...</p>
-            )}
+                    <p>Loading...</p>
+                )}
+        </div>
+        
     </div>
   )
 }
